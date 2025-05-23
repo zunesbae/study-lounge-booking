@@ -124,13 +124,27 @@
     </div>
 
     <div id="availability" class="content-box" style="display:none;">
-      <h2>Room Availability</h2>
-      <p>
-        Room 1 - Available: 9am–12pm, 1pm–3pm<br>
-        Room 2 - Available: 10am–1pm, 4pm–6pm<br>
-        Room 3 - Fully Booked
-      </p>
+  <h2>Room Availability</h2>
+  <div style="display: flex; flex-direction: column; gap: 1rem;">
+    <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 6px;">
+      <h3>Room 1</h3>
+      <p><span style="color: green; font-weight: bold;">9:00 AM – 12:00 PM</span> Available</p>
+      <p><span style="color: red; font-weight: bold;">12:00 PM – 1:00 PM</span> Booked</p>
+      <p><span style="color: green; font-weight: bold;">1:00 PM – 3:00 PM</span> Available</p>
     </div>
+    <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 6px;">
+      <h3>Room 2</h3>
+      <p><span style="color: green; font-weight: bold;">10:00 AM – 1:00 PM</span> Available</p>
+      <p><span style="color: red; font-weight: bold;">1:00 PM – 2:00 PM</span> Booked</p>
+      <p><span style="color: green; font-weight: bold;">2:00 PM – 6:00 PM</span> Available</p>
+    </div>
+    <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 6px;">
+      <h3>Room 3</h3>
+      <p><span style="color: red; font-weight: bold;">All Day</span> Fully Booked</p>
+    </div>
+  </div>
+</div>
+
 
     <div id="booking" class="content-box" style="display:none;">
       <h2>Book a Room</h2>
