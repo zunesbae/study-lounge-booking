@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Lounge Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #005baa;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background: #003f7f;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      padding: 2rem;
+    }
+    form, .content-box {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    input, select, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      background: #005baa;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004080;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Study Lounge Booking</h1>
+  </header>
+  <nav>
+    <a href="#home" onclick="showSection('home')">Home</a>
+    <a href="#availability" onclick="showSection('availability')">Room Availability</a>
+    <a href="#booking" onclick="showSection('booking')">Book a Room</a>
+    <a href="#confirmation" onclick="showSection('confirmation')">Confirmation</a>
+  </nav>
+  <div class="container">
+    <div id="home" class="content-box">
+      <h2>Welcome to the Study Lounge Booking System</h2>
+      <p>Use this platform to view room availability and book your study lounge sessions.</p>
+    </div>
+
+    <div id="availability" class="content-box" style="display:none;">
+      <h2>Room Availability</h2>
+      <p>Room 1 - Available: 9am–12pm, 1pm–3pm<br>Room 2 - Available: 10am–1pm, 4pm–6pm<br>Room 3 - Fully Booked</p>
+    </div>
+
+    <div id="booking" class="content-box" style="display:none;">
+      <h2>Book a Room</h2>
+      <form onsubmit="event.preventDefault(); showSection('confirmation');">
+        <label for="student-id">Student ID:</label>
+        <input type="text" id="student-id" placeholder="Enter your student ID" required>
+
+        <label for="room">Select Room:</label>
+        <select id="room">
+          <option value="room1">Room 1</option>
+          <option value="room2">Room 2</option>
+          <option value="room3">Room 3</option>
+        </select>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" required>
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" required>
+
+        <button type="submit">Book Now</button>
+      </form>
+    </div>
+
+    <div id="confirmation" class="content-box" style="display:none;">
+      <h2>Booking Confirmed!</h2>
+      <p>Your study lounge session has been successfully booked. See you there!</p>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      const sections = ['home', 'availability', 'booking', 'confirmation'];
+      sections.forEach(section => {
+        document.getElementById(section).style.display = section === id ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
