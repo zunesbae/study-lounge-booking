@@ -73,7 +73,6 @@
     <a href="#home" onclick="showSection('home')">Home</a>
     <a href="#availability" onclick="showSection('availability')">Room Availability</a>
     <a href="#booking" onclick="showSection('booking')">Book a Room</a>
-    <a href="#confirmation" onclick="showSection('confirmation')">Confirmation</a>
   </nav>
   <div class="container">
     <div id="home" class="content-box">
@@ -89,9 +88,9 @@
 
     <div id="booking" class="content-box" style="display:none;">
       <h2>Book a Room</h2>
-      <form onsubmit="event.preventDefault(); showSection('confirmation');">
-        <label for="student-id">Student ID:</label>
-        <input type="text" id="student-id" placeholder="Enter your student ID" required>
+      <form onsubmit="event.preventDefault(); sendConfirmation();">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
 
         <label for="room">Select Room:</label>
         <select id="room">
@@ -109,19 +108,23 @@
         <button type="submit">Book Now</button>
       </form>
     </div>
-
-    <div id="confirmation" class="content-box" style="display:none;">
-      <h2>Booking Confirmed!</h2>
-      <p>Your study lounge session has been successfully booked. See you there!</p>
-    </div>
   </div>
 
   <script>
     function showSection(id) {
-      const sections = ['home', 'availability', 'booking', 'confirmation'];
+      const sections = ['home', 'availability', 'booking'];
       sections.forEach(section => {
         document.getElementById(section).style.display = section === id ? 'block' : 'none';
       });
+    }
+
+    function sendConfirmation() {
+      const email = document.getElementById('email').value;
+      const room = document.getElementById('room').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      alert(`Confirmation sent to ${email}\n\nDetails:\nRoom: ${room}\nDate: ${date}\nTime: ${time}`);
     }
   </script>
 </body>
