@@ -77,19 +77,17 @@
       z-index: 1;
     }
     .slideshow-buttons button {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 0.8rem;
+      height: 0.8rem;
       border-radius: 50%;
       border: none;
       background: rgba(255, 255, 255, 0.8);
-      font-weight: bold;
-      font-size: 0.9rem;
       cursor: pointer;
       transition: background 0.3s;
+      padding: 0;
     }
     .slideshow-buttons button.active {
       background: #005baa;
-      color: white;
     }
   </style>
 </head>
@@ -104,11 +102,12 @@
   </nav>
   <div class="container">
     <div id="home" class="content-box">
-      <div class="slideshow-wrapper">
+      <div class="slideshow-wrapper"
+           onmouseenter="pauseSlideshow()" onmouseleave="resumeSlideshow()">
         <img id="slideshow" class="slideshow" src="Quiet-spaces-Events-rooms.jpg" alt="Study Lounge">
         <div class="slideshow-buttons">
-          <button onclick="selectImage(0)" id="btn0">1</button>
-          <button onclick="selectImage(1)" id="btn1">2</button>
+          <button onclick="selectImage(0)" id="btn0"></button>
+          <button onclick="selectImage(1)" id="btn1"></button>
         </div>
       </div>
       <h2>Welcome to the Study Lounge Booking System</h2>
@@ -166,6 +165,7 @@
       'study-lounge-2.jpg'
     ];
     let index = 0;
+    let intervalId;
 
     function updateSlideshow() {
       document.getElementById('slideshow').src = images[index];
@@ -179,12 +179,23 @@
       updateSlideshow();
     }
 
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      updateSlideshow();
-    }, 10000);
+    function startSlideshow() {
+      intervalId = setInterval(() => {
+        index = (index + 1) % images.length;
+        updateSlideshow();
+      }, 5000);
+    }
+
+    function pauseSlideshow() {
+      clearInterval(intervalId);
+    }
+
+    function resumeSlideshow() {
+      startSlideshow();
+    }
 
     updateSlideshow();
+    startSlideshow();
   </script>
 </body>
 </html>
