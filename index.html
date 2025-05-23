@@ -59,28 +59,34 @@
       background: #004080;
     }
     .slideshow {
+      position: relative;
       width: 100%;
       height: auto;
       border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-    .slideshow-buttons {
-      display: flex;
-      gap: 0.5rem;
       margin-bottom: 1rem;
     }
+    .slideshow-buttons {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      display: flex;
+      gap: 0.5rem;
+    }
     .slideshow-buttons button {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 1.8rem;
+      height: 1.8rem;
       border-radius: 50%;
       border: none;
-      background: #ccc;
+      background: rgba(255, 255, 255, 0.6);
       font-weight: bold;
       cursor: pointer;
     }
     .slideshow-buttons button.active {
       background: #005baa;
       color: white;
+    }
+    .slideshow-wrapper {
+      position: relative;
     }
   </style>
 </head>
@@ -95,10 +101,12 @@
   </nav>
   <div class="container">
     <div id="home" class="content-box">
-      <img id="slideshow" class="slideshow" src="Quiet-spaces-Events-rooms.jpg" alt="Study Lounge">
-      <div class="slideshow-buttons">
-        <button onclick="selectImage(0)" id="btn0">1</button>
-        <button onclick="selectImage(1)" id="btn1">2</button>
+      <div class="slideshow-wrapper">
+        <img id="slideshow" class="slideshow" src="Quiet-spaces-Events-rooms.jpg" alt="Study Lounge">
+        <div class="slideshow-buttons">
+          <button onclick="selectImage(0)" id="btn0">1</button>
+          <button onclick="selectImage(1)" id="btn1">2</button>
+        </div>
       </div>
       <h2>Welcome to the Study Lounge Booking System</h2>
       <p>Use this platform to view room availability and book your study lounge sessions.</p>
@@ -171,7 +179,7 @@
     setInterval(() => {
       index = (index + 1) % images.length;
       updateSlideshow();
-    }, 7000);
+    }, 10000); // Adjusted to 10 seconds
 
     updateSlideshow();
   </script>
