@@ -62,7 +62,25 @@
       width: 100%;
       height: auto;
       border-radius: 8px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .slideshow-buttons {
+      text-align: left;
+      margin-top: 0.5rem;
+    }
+    .slideshow-buttons button {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      border: none;
+      background: #ccc;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .slideshow-buttons button.active {
+      background: #005baa;
+      color: white;
     }
   </style>
 </head>
@@ -78,6 +96,10 @@
   <div class="container">
     <div id="home" class="content-box">
       <img id="slideshow" class="slideshow" src="Quiet-spaces-Events-rooms.jpg" alt="Study Lounge">
+      <div class="slideshow-buttons">
+        <button onclick="selectImage(0)" id="btn0">1</button>
+        <button onclick="selectImage(1)" id="btn1">2</button>
+      </div>
       <h2>Welcome to the Study Lounge Booking System</h2>
       <p>Use this platform to view room availability and book your study lounge sessions.</p>
     </div>
@@ -128,16 +150,30 @@
       alert(`Confirmation sent to ${email}\n\nDetails:\nRoom: ${room}\nDate: ${date}\nTime: ${time}`);
     }
 
-    // Slideshow Logic
     const images = [
       'Quiet-spaces-Events-rooms.jpg',
       'study-lounge-2.jpg'
     ];
     let index = 0;
+
+    function updateSlideshow() {
+      document.getElementById('slideshow').src = images[index];
+      document.getElementById('btn0').classList.remove('active');
+      document.getElementById('btn1').classList.remove('active');
+      document.getElementById(`btn${index}`).classList.add('active');
+    }
+
+    function selectImage(i) {
+      index = i;
+      updateSlideshow();
+    }
+
     setInterval(() => {
       index = (index + 1) % images.length;
-      document.getElementById('slideshow').src = images[index];
-    }, 3000); // Change every 3 seconds
+      updateSlideshow();
+    }, 3000);
+
+    updateSlideshow();
   </script>
 </body>
 </html>
