@@ -58,20 +58,28 @@
     button:hover {
       background: #004080;
     }
+
+    /* Slideshow Responsive Aspect Ratio */
     .slideshow-wrapper {
       position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
       overflow: hidden;
       border-radius: 8px;
     }
     .slideshow-track {
+      position: absolute;
+      top: 0;
+      left: 0;
       display: flex;
-      transition: transform 0.3s ease-in-out;
       width: 200%;
+      height: 100%;
+      transition: transform 0.3s ease-in-out;
     }
     .slideshow {
       width: 100%;
-      height: 300px; /* or any consistent height you want */
-      object-fit: cover; /* crops to fill the box */
+      height: 100%;
+      object-fit: cover;
       flex-shrink: 0;
     }
     .slideshow-buttons {
@@ -96,6 +104,22 @@
     }
     .slideshow-buttons button.active {
       background: #005baa;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+      nav a {
+        margin: 0.5rem 0.3rem;
+        font-size: 0.9rem;
+      }
+      input, select, button {
+        font-size: 0.9rem;
+      }
+      h1, h2, h3 {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -195,10 +219,26 @@
       isDragging = true;
       startX = e.clientX;
     });
-
     wrapper.addEventListener('mouseup', (e) => {
       if (!isDragging) return;
       const diff = e.clientX - startX;
+      if (diff > 50 && currentSlide > 0) {
+        currentSlide--;
+      } else if (diff < -50 && currentSlide < totalSlides - 1) {
+        currentSlide++;
+      }
+      updateSlider();
+      isDragging = false;
+    });
+
+    // Mobile touch support
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+    wrapper.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const diff = e.changedTouches[0].clientX - startX;
       if (diff > 50 && currentSlide > 0) {
         currentSlide--;
       } else if (diff < -50 && currentSlide < totalSlides - 1) {
