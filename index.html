@@ -39,7 +39,7 @@
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 500px;
+      max-width: none; /* allow full image width */
       margin: auto;
     }
     input, select, button {
@@ -59,9 +59,7 @@
       background: #004080;
     }
 
-    /* Slideshow Option 1 */
     .slideshow-wrapper {
-      position: relative;
       width: 100%;
       overflow: hidden;
       border-radius: 8px;
@@ -75,6 +73,7 @@
     }
 
     .slideshow {
+      display: block;
       width: 100%;
       height: auto;
       flex-shrink: 0;
@@ -84,14 +83,9 @@
     }
 
     .slideshow-buttons {
-      position: absolute;
-      bottom: 4px;
-      left: 4px;
       display: flex;
       gap: 0.3rem;
-      z-index: 1;
-      padding: 0;
-      margin: 0;
+      padding-top: 0.5rem;
     }
 
     .slideshow-buttons button {
@@ -99,7 +93,7 @@
       height: 0.8rem;
       border-radius: 50%;
       border: none;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: background 0.3s;
       padding: 0;
@@ -142,10 +136,10 @@
           <img src="Quiet-spaces-Events-rooms__2.jpg" class="slideshow" alt="Slide 1">
           <img src="study-lounge-2.jpg" class="slideshow" alt="Slide 2">
         </div>
-        <div class="slideshow-buttons">
-          <button onclick="goToSlide(0)" id="btn0"></button>
-          <button onclick="goToSlide(1)" id="btn1"></button>
-        </div>
+      </div>
+      <div class="slideshow-buttons">
+        <button onclick="goToSlide(0)" id="btn0"></button>
+        <button onclick="goToSlide(1)" id="btn1"></button>
       </div>
       <h2>Welcome to the Study Lounge Booking System</h2>
       <p>Use this platform to view room availability and book your study lounge sessions.</p>
