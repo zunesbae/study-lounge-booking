@@ -190,35 +190,39 @@
     }
 
     function generateAvailability() {
-      const rooms = ["Room 1", "Room 2", "Room 3"];
-      const container = document.getElementById("availabilityContainer");
-      container.innerHTML = "";
+  const rooms = ["Room 1", "Room 2", "Room 3"];
+  const container = document.getElementById("availabilityContainer");
+  container.innerHTML = "";
 
-      rooms.forEach((room, roomIndex) => {
-        const roomDiv = document.createElement("div");
-        roomDiv.style.border = "1px solid #ccc";
-        roomDiv.style.padding = "1rem";
-        roomDiv.style.borderRadius = "6px";
-        roomDiv.style.marginBottom = "1rem";
+  rooms.forEach((room) => {
+    const roomDiv = document.createElement("div");
+    roomDiv.style.border = "1px solid #ccc";
+    roomDiv.style.padding = "1rem";
+    roomDiv.style.borderRadius = "6px";
+    roomDiv.style.marginBottom = "1rem";
+    roomDiv.style.backgroundColor = "#fff";
 
-        const title = document.createElement("h3");
-        title.textContent = room;
-        roomDiv.appendChild(title);
+    const title = document.createElement("h3");
+    title.textContent = room;
+    roomDiv.appendChild(title);
 
-        for (let h = 0; h < 24; h++) {
-          const nextH = (h + 1) % 24;
-          const start = String(h).padStart(2, '0') + ":00";
-          const end = String(nextH).padStart(2, '0') + ":00";
-          const isAvailable = Math.random() > 0.5;
+    for (let hour = 0; hour < 24; hour++) {
+      const nextHour = (hour + 1) % 24;
 
-          const p = document.createElement("p");
-          p.innerHTML = `<span style="color: ${isAvailable ? 'green' : 'red'}; font-weight: bold;">${start} – ${end}</span> ${isAvailable ? 'Available' : 'Booked'}`;
-          roomDiv.appendChild(p);
-        }
+      const start = `${String(hour).padStart(2, '0')}:00`;
+      const end = `${String(nextHour).padStart(2, '0')}:00`;
 
-        container.appendChild(roomDiv);
-      });
+      const isAvailable = Math.random() > 0.5;
+
+      const p = document.createElement("p");
+      p.innerHTML = `<span style="color: ${isAvailable ? 'green' : 'red'}; font-weight: bold;">${start} – ${end}</span> ${isAvailable ? 'Available' : 'Booked'}`;
+      roomDiv.appendChild(p);
     }
+
+    container.appendChild(roomDiv);
+  });
+}
+
 
     function sendConfirmation() {
       const email = document.getElementById('email').value;
