@@ -59,33 +59,28 @@
       background: #004080;
     }
 
-    /* Slideshow Fix */
+    /* Slideshow Option 1 */
     .slideshow-wrapper {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9; /* Replaces padding-top trick */
       overflow: hidden;
       border-radius: 8px;
-      max-height: 400px; /* Optional: prevents stretching */
       background: #000;
     }
 
     .slideshow-track {
-      position: absolute;
-      top: 0;
-      left: 0;
       display: flex;
-      width: 200%;
-      height: 100%;
       transition: transform 0.3s ease-in-out;
+      width: 200%;
     }
 
     .slideshow {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      height: auto;
       flex-shrink: 0;
+      object-fit: contain;
+      object-position: center;
+      background: #000;
     }
 
     .slideshow-buttons {
