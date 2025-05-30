@@ -59,15 +59,17 @@
       background: #004080;
     }
 
-    /* Slideshow Responsive Aspect Ratio */
+    /* Slideshow Fix */
     .slideshow-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      aspect-ratio: 16 / 9; /* Replaces padding-top trick */
       overflow: hidden;
       border-radius: 8px;
-      background: black;
+      max-height: 400px; /* Optional: prevents stretching */
+      background: #000;
     }
+
     .slideshow-track {
       position: absolute;
       top: 0;
@@ -77,14 +79,15 @@
       height: 100%;
       transition: transform 0.3s ease-in-out;
     }
+
     .slideshow {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Ensures full image is visible */
+      object-fit: cover;
       object-position: center;
-      background-color: black;
       flex-shrink: 0;
     }
+
     .slideshow-buttons {
       position: absolute;
       bottom: 4px;
@@ -95,6 +98,7 @@
       padding: 0;
       margin: 0;
     }
+
     .slideshow-buttons button {
       width: 0.8rem;
       height: 0.8rem;
@@ -105,6 +109,7 @@
       transition: background 0.3s;
       padding: 0;
     }
+
     .slideshow-buttons button.active {
       background: #005baa;
     }
