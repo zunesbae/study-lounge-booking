@@ -59,7 +59,6 @@
       background: #004080;
     }
 
-    /* Slideshow with max height */
     .slideshow-wrapper {
       text-align: center;
       background: #000;
@@ -69,7 +68,7 @@
 
     .slideshow {
       max-width: 100%;
-      max-height: 400px; /* ✅ This limits vertical size */
+      max-height: 400px;
       width: auto;
       height: auto;
       display: none;
@@ -143,24 +142,7 @@
 
     <div id="availability" class="content-box" style="display:none;">
       <h2>Room Availability</h2>
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 6px;">
-          <h3>Room 1</h3>
-          <p><span style="color: green; font-weight: bold;">9:00 AM – 12:00 PM</span> Available</p>
-          <p><span style="color: red; font-weight: bold;">12:00 PM – 1:00 PM</span> Booked</p>
-          <p><span style="color: green; font-weight: bold;">1:00 PM – 3:00 PM</span> Available</p>
-        </div>
-        <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 6px;">
-          <h3>Room 2</h3>
-          <p><span style="color: green; font-weight: bold;">10:00 AM – 1:00 PM</span> Available</p>
-          <p><span style="color: red; font-weight: bold;">1:00 PM – 2:00 PM</span> Booked</p>
-          <p><span style="color: green; font-weight: bold;">2:00 PM – 6:00 PM</span> Available</p>
-        </div>
-        <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 6px;">
-          <h3>Room 3</h3>
-          <p><span style="color: red; font-weight: bold;">All Day</span> Fully Booked</p>
-        </div>
-      </div>
+      <div id="availabilityContainer"></div>
     </div>
 
     <div id="booking" class="content-box" style="display:none;">
@@ -202,6 +184,40 @@
       ['home', 'availability', 'booking'].forEach(section => {
         document.getElementById(section).style.display = section === id ? 'block' : 'none';
       });
+      if (id === 'availability') {
+        generateAvailability();
+      }
+    }
+
+    function generateAvailability() {
+      const rooms = ["Room 1", "Room 2", "Room 3"];
+      const container = document.getElementById("availabilityContainer");
+      container.innerHTML = "";
+
+      rooms.forEach((room, roomIndex) => {
+        const roomDiv = document.createElement("div");
+        roomDiv.style.border = "1px solid #ccc";
+        roomDiv.style.padding = "1rem";
+        roomDiv.style.borderRadius = "6px";
+        roomDiv.style.marginBottom = "1rem";
+
+        const title = document.createElement("h3");
+        title.textContent = room;
+        roomDiv.appendChild(title);
+
+        for (let h = 0; h < 24; h++) {
+          const nextH = (h + 1) % 24;
+          const start = String(h).padStart(2, '0') + ":00";
+          const end = String(nextH).padStart(2, '0') + ":00";
+          const isAvailable = Math.random() > 0.5;
+
+          const p = document.createElement("p");
+          p.innerHTML = `<span style="color: ${isAvailable ? 'green' : 'red'}; font-weight: bold;">${start} – ${end}</span> ${isAvailable ? 'Available' : 'Booked'}`;
+          roomDiv.appendChild(p);
+        }
+
+        container.appendChild(roomDiv);
+      });
     }
 
     function sendConfirmation() {
@@ -212,7 +228,7 @@
       alert(`Confirmation sent to ${email}\n\nDetails:\nRoom: ${room}\nDate: ${date}\nTime: ${time}`);
     }
 
-    // Initialize the first slide
+    // Initialize first slide
     showSlide(0);
   </script>
 </body>
