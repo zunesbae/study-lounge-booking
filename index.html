@@ -39,7 +39,7 @@
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: none; /* allow full image width */
+      max-width: 600px;
       margin: auto;
     }
     input, select, button {
@@ -59,44 +59,39 @@
       background: #004080;
     }
 
+    /* Simple Slideshow Layout */
     .slideshow-wrapper {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 8px;
+      text-align: center;
       background: #000;
-    }
-
-    .slideshow-track {
-      display: flex;
-      transition: transform 0.3s ease-in-out;
-      width: 200%;
+      padding: 1rem;
+      border-radius: 8px;
     }
 
     .slideshow {
-      display: block;
-      width: 100%;
+      max-width: 100%;
       height: auto;
-      flex-shrink: 0;
-      object-fit: contain;
-      object-position: center;
-      background: #000;
+      display: none;
+      border-radius: 8px;
+    }
+
+    .slideshow.active {
+      display: block;
     }
 
     .slideshow-buttons {
+      margin-top: 0.5rem;
       display: flex;
-      gap: 0.3rem;
-      padding-top: 0.5rem;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .slideshow-buttons button {
-      width: 0.8rem;
-      height: 0.8rem;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       border: none;
-      background: rgba(0, 0, 0, 0.3);
+      background: #ccc;
       cursor: pointer;
-      transition: background 0.3s;
-      padding: 0;
     }
 
     .slideshow-buttons button.active {
@@ -131,15 +126,13 @@
   </nav>
   <div class="container">
     <div id="home" class="content-box">
-      <div class="slideshow-wrapper" id="slideshowWrapper">
-        <div class="slideshow-track" id="slideshowTrack">
-          <img src="Quiet-spaces-Events-rooms__2.jpg" class="slideshow" alt="Slide 1">
-          <img src="study-lounge-2.jpg" class="slideshow" alt="Slide 2">
+      <div class="slideshow-wrapper">
+        <img id="slide0" src="Quiet-spaces-Events-rooms__2.jpg" class="slideshow active" alt="Slide 1">
+        <img id="slide1" src="study-lounge-2.jpg" class="slideshow" alt="Slide 2">
+        <div class="slideshow-buttons">
+          <button onclick="showSlide(0)" id="btn0" class="active"></button>
+          <button onclick="showSlide(1)" id="btn1"></button>
         </div>
-      </div>
-      <div class="slideshow-buttons">
-        <button onclick="goToSlide(0)" id="btn0"></button>
-        <button onclick="goToSlide(1)" id="btn1"></button>
       </div>
       <h2>Welcome to the Study Lounge Booking System</h2>
       <p>Use this platform to view room availability and book your study lounge sessions.</p>
@@ -192,58 +185,15 @@
   </div>
 
   <script>
-    let currentSlide = 0;
-    const slideshowTrack = document.getElementById('slideshowTrack');
-    const slides = document.querySelectorAll('.slideshow');
-    const totalSlides = slides.length;
-    const buttons = [document.getElementById('btn0'), document.getElementById('btn1')];
+    function showSlide(index) {
+      const slides = [document.getElementById("slide0"), document.getElementById("slide1")];
+      const buttons = [document.getElementById("btn0"), document.getElementById("btn1")];
 
-    function updateSlider() {
-      slideshowTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-      buttons.forEach((btn, idx) => btn.classList.toggle('active', idx === currentSlide));
+      slides.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
+        buttons[i].classList.toggle("active", i === index);
+      });
     }
-
-    function goToSlide(index) {
-      currentSlide = index;
-      updateSlider();
-    }
-
-    let startX = 0;
-    let isDragging = false;
-
-    const wrapper = document.getElementById('slideshowWrapper');
-    wrapper.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-    });
-    wrapper.addEventListener('mouseup', (e) => {
-      if (!isDragging) return;
-      const diff = e.clientX - startX;
-      if (diff > 50 && currentSlide > 0) {
-        currentSlide--;
-      } else if (diff < -50 && currentSlide < totalSlides - 1) {
-        currentSlide++;
-      }
-      updateSlider();
-      isDragging = false;
-    });
-
-    // Mobile touch support
-    wrapper.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      startX = e.touches[0].clientX;
-    });
-    wrapper.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      const diff = e.changedTouches[0].clientX - startX;
-      if (diff > 50 && currentSlide > 0) {
-        currentSlide--;
-      } else if (diff < -50 && currentSlide < totalSlides - 1) {
-        currentSlide++;
-      }
-      updateSlider();
-      isDragging = false;
-    });
 
     function showSection(id) {
       ['home', 'availability', 'booking'].forEach(section => {
@@ -259,7 +209,8 @@
       alert(`Confirmation sent to ${email}\n\nDetails:\nRoom: ${room}\nDate: ${date}\nTime: ${time}`);
     }
 
-    updateSlider();
+    // Initialize the first slide
+    showSlide(0);
   </script>
 </body>
 </html>
